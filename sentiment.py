@@ -17,12 +17,12 @@ counter = 0
  
  #initializations
 es = Elasticsearch()
-arn = 'arn:aws:sns:us-west-2:250741115549:notify_sent'
-ml = MonkeyLearn('c15ecc6f9d03c4706e6ec0989e2c8ba7515a3ff5')
-module_id = 'cl_qkjxv9Ly'
-sqs =  boto.sqs.connect_to_region(REGION, aws_access_key_id='AKIAJPK3CMEWGPMYOV4A', aws_secret_access_key='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')
-# sns = boto3.client('sns', aws_access_key_id='AKIAJPK3CMEWGPMYOV4A', aws_secret_access_key='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')
-sns = boto3.resource('sns',aws_access_key_id='AKIAJPK3CMEWGPMYOV4A', aws_secret_access_key='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')
+arn = 'ARN_LINK'
+ml = MonkeyLearn('ML_API_KEY')
+module_id = 'MODULE_ID'
+sqs =  boto.sqs.connect_to_region(REGION, aws_access_key_id='AK', aws_secret_access_key='SK')
+# sns = boto3.client('sns', aws_access_key_id='AK', aws_secret_access_key='SK')
+sns = boto3.resource('sns',aws_access_key_id='AK', aws_secret_access_key='SK')
 platform_endpoint = sns.PlatformEndpoint(arn)
 
 #Sending to queue method
@@ -33,14 +33,14 @@ platform_endpoint = sns.PlatformEndpoint(arn)
 
 
 def queue_count(REGION, QUEUE):
-    conn = boto.sqs.connect_to_region(REGION, aws_access_key_id='AKIAJPK3CMEWGPMYOV4A', aws_secret_access_key='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')
+    conn = boto.sqs.connect_to_region(REGION, aws_access_key_id='AK', aws_secret_access_key='SK')
     q = conn.get_queue(QUEUE)
     count = q.count()
     return count 
 
 
 def get_messages(REGION, QUEUE):
-    conn = boto.sqs.connect_to_region(REGION, aws_access_key_id='AKIAJPK3CMEWGPMYOV4A', aws_secret_access_key='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')
+    conn = boto.sqs.connect_to_region(REGION, aws_access_key_id='AK', aws_secret_access_key='SK')
     q = conn.get_queue(QUEUE)
     mess = q.set_message_class(RawMessage)
     mess = q.get_messages()
@@ -82,11 +82,6 @@ def get_messages(REGION, QUEUE):
         # text_list = ["This is a text to test your classifier", "This is some more text"]
         # res = ml.classifiers.classify(module_id, rst['tweet'], sandbox=True)
         # print res.result
-
-        #add sentiment values from monkey learn
-        #do this by appending to rst dictionary the sentiment keys
-        #then push to another sqs like you said I guess
-        
 
 while True:
     if queue_count(REGION, QUEUE1) > 0:
