@@ -9,13 +9,13 @@ import fetch
 from boto.sqs.connection import SQSConnection
 
 
-con_key ='TQQvceMyQ8JpIp4yPDJ51eqkU'
-con_secret ='tmdzEtXmD9dZhXfdt7hAUClL1ZC8efirBmhPYLztbb4iMzWIrL'
-acess_token ='357005134-tlDx6j7FL3YfT749102zQcLU8uQ5ZlUj1KQxvkqc'
-acess_secret = 'hp99szIiMvtOCvrDYDztPYCypJkBdLMtS4dfUuknyrRd0'
+con_key ='CON_KEY'
+con_secret ='CON_SECRET'
+acess_token ='ACCESS_TOKEN'
+acess_secret = 'ACCESS_SECRET'
 
-sqs = boto.sqs.connect_to_region('us-west-2', aws_access_key_id='AKIAJPK3CMEWGPMYOV4A', aws_secret_access_key='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')
-# sqs = SQSConnection('AKIAJPK3CMEWGPMYOV4A', 'tfFm764fstOUnTHTvxEYtb7o3POZRbEFLpDvyRBc')
+sqs = boto.sqs.connect_to_region('us-west-2', aws_access_key_id='ACCESS_KEY', aws_secret_access_key='SECRET_ACCESS')
+# sqs = SQSConnection('ACCESS_KEY', 'SECRET_ACCESS')
 print 'Connected with SQS... '
 
 def pushToQueue(sqs, qname, jsontype):
@@ -62,4 +62,4 @@ auth = OAuthHandler(con_key, con_secret)
 auth.set_access_token(acess_token, acess_secret)
 
 twitterStream = Stream(auth, listener())
-twitterStream.filter(track=["like","travel","peace","good","love","today","work","nyc"])
+twitterStream.filter(track=["photo","travel","cricket","play","love","today","work","outfit"])
